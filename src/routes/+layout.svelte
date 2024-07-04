@@ -22,6 +22,11 @@
             &[aria-current=page] {
                 color: var(--accent);
             }
+
+            &:hover {
+                color: var(--accent);
+                text-decoration: underline;
+            }
         }
 
         ul, li {
@@ -36,11 +41,6 @@
                 padding-bottom: 0;
                 text-transform: capitalize;
                 font-size: 1.5rem;
-
-                &:hover {
-                    color: var(--accent);
-                    text-decoration: underline;
-                }
             }
         }
     }
@@ -60,8 +60,13 @@
                 </li>
             {/each}
         </ul>
+        
         <span style:flex=auto />
-        <a href="https://github.com/dinosaw44" title="Github Repo">
+
+        <a href="https://github.com/dinosaw44" title="Github Repo" 
+            style:display=flex 
+            style:flex-direction=column-reverse
+        >
             <FontAwesomeIcon icon={githubIcon}/>
         </a>
     </nav>
