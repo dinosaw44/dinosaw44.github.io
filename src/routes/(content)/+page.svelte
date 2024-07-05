@@ -25,6 +25,24 @@
             transform: scale(1.2);
         }
     }
+
+    @keyframes decor {
+        to { 
+            transform: scale(1.5);
+            opacity: 0;
+        }
+    }
+
+    img.decor {
+        position: absolute;
+
+        &:is(.clear) {
+            animation-name: decor;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            pointer-events: none;
+        }
+    }
 </style>
 
 <div style:display="inline-block">
@@ -38,3 +56,17 @@
         </span>
     </hgroup>
 </div>
+
+<img class="decor" src="pointer-left.png" alt=""
+    style:left="3ch"
+    style:top="4ch"
+    style:transform="scale(.5)"
+    on:mouseenter={e => e.currentTarget.classList.add("clear")}
+/>
+
+<img class="decor" src="pointer-right.png" alt=""
+    style:right="6ch"
+    style:top="4ch"
+    style:transform="scale(.75)"
+    on:mouseenter={e => e.currentTarget.classList.add("clear")}
+/>
