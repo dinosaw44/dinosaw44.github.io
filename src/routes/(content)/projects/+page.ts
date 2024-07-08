@@ -3,6 +3,7 @@ type Repo = {
     html_url: string,
     description?: string,
     homepage?: string,
+    updated_at: string,
 }
 
 export async function load() {
@@ -14,12 +15,14 @@ export async function load() {
         const description = repo.description
         const source = new URL(repo.html_url)
         const homepage = repo.homepage ? new URL(repo.homepage) : undefined
+        const updated = repo.updated_at
 
         return {
             name,
             description,
             source,
             homepage,
+            updated,
         }
     })
 
