@@ -5,6 +5,17 @@
     import { DateTime } from "luxon"
 
     export let data;
+
+    const projects = data.projects.map(({ updated, ...props }) => {
+        return {
+            ...props,
+            updated: DateTime.fromISO(updated),
+        }
+    })
+
+    const orderByLatest = (a: typeof projects[number], b: typeof projects[number]) => {
+        return b.updated.toMillis() - a.updated.toMillis()
+    }
 </script>
 
 <style lang=scss>
@@ -19,8 +30,8 @@
 </style>
 
 <div style:display=flex style:gap=5ch style:padding="20ch 0 0 20ch">
-    {#each data.projects as { name, description, source, homepage, updated }}
-        {@const timeSinceUpdate = DateTime.fromISO(updated).toRelativeCalendar()}
+    {#each projects.sort(orderByLatest) as { name, description, source, homepage, updated }}
+        {@const timeSinceUpdate = updated.toRelativeCalendar()}
 
         <div
             style:border="solid var(--accent) 2px"
