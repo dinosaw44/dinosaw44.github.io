@@ -63,7 +63,7 @@
         
         <span style:flex=auto />
 
-        <a href="https://github.com/dinosaw44" title="Github Repo" 
+        <a href="https://github.com/dinosaw44" title="Github Profile" target="_blank"
             style:display=flex 
             style:flex-direction=column-reverse
         >
