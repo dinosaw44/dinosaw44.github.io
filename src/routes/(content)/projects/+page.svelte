@@ -1,30 +1,33 @@
 <script lang=ts>
-    import { Card as ProjectPreview } from "$lib/components/project"
+    import { Card as ProjectPreview, type Project } from "$lib/components/project"
     import { DateTime } from "luxon"
 
-    export let data;
+    const outHomeSite = ({ title }: Project) => !title.endsWith(".github.io")
 
-    const projects = data.projects.map(({ updated, ...props }) => {
-        return {
-            ...props,
-            updated: DateTime.fromISO(updated),
-        }
+    const byLastUpdated = (
+        { updated: a }: Project,
+        { updated: b}: Project,
+    ) => b.getTime() - a.getTime()
+
+    const fromKebabCase = ({ title, ...info }: Project) => Object.assign(info, {
+        title: title.replaceAll("-", " ")
     })
 
-    const orderByLatest = (a: typeof projects[number], b: typeof projects[number]) => {
-        return b.updated.toMillis() - a.updated.toMillis()
-    }
+    const toRelativeTime = ({ updated, ...info }: Project) => Object.assign(info, {
+        updated: DateTime.fromJSDate(updated).toRelativeCalendar()
+    })
+
+    export let data
+    
+    const projects = data.projects
+        .filter(outHomeSite)
+        .map(fromKebabCase)
+        .sort(byLastUpdated)
+        .map(toRelativeTime)
 </script>
 
 <div style:display=flex style:grid-template-columns="1fr" style:gap=5ch style:padding="20ch 0 0 20ch">
-    {#each projects.sort(orderByLatest) as { name, description, source, homepage, updated, tags }}
-        <ProjectPreview 
-            updated={updated.toJSDate()}
-            title={name}
-            description={description}
-            site={homepage}
-            source={source}
-            tags={tags}
-        />
+    {#each projects as info}
+        <ProjectPreview {info} />
     {/each}
 </div>

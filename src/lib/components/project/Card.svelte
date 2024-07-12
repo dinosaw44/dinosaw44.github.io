@@ -1,11 +1,6 @@
-<script lang=ts context=module>
-    import { DateTime } from "luxon"
-
-    const updated = (isoDate: string) => DateTime.fromISO(isoDate)
-    const relative = (date: Date) => updated(date.toISOString()).toRelativeCalendar()
-</script>
-
 <script lang=ts>
+    import { type Project } from "$lib/components/project"
+
     import Card from "$lib/ui/card"
     import Tag from "$lib/ui/tag"
 
@@ -13,19 +8,16 @@
     import { faCodeBranch as githubIcon } from "@fortawesome/free-solid-svg-icons"
     import { faLayerGroup as projectIcon } from "@fortawesome/free-solid-svg-icons"
 
-    export let updated: Date
-    export let title: string
-    export let description: string | null = null
-    export let site: URL | null = null
-    export let source: URL
-    export let tags: string[] = []
+    export let info: Omit<Project, "updated"> & { updated: string | null }
 
-    const decorated = (tag: typeof tags[number]) => {
+    const decorated = (tag: typeof info.tags[number]) => {
         const colors: Record<string, `#${string}`> = {
             "Svelte": "#f00",
             "TypeScript": "#07a",
             "JavaScript": "#fc0",
+            "SCSS": "#faf",
             "React": "#077",
+            "NextJS": "#aaa",
             "PWA": "#7a0",
             "WebRTC": "#fa0",
         }
@@ -51,14 +43,14 @@
 <Card>
     <article style:display=flex style:flex-direction=column style:height=100%>
         <hgroup>
-            <small>Updated {relative(updated)}</small>
+            <small>Updated {info.updated}</small>
             <hr />
-            <h1>{title}</h1>
+            <h1>{info.title}</h1>
         </hgroup>
 
         <span style:flex=auto>
-            {#if description}
-                <p style:padding-left=1rem>{description}</p>
+            {#if info.description}
+                <p style:padding-left=1rem>{info.description}</p>
             {:else}
                 <p style:text-align=center>
                     <i>No description</i>
@@ -67,23 +59,23 @@
         </span>
 
         <span style:margin="3rem 1rem 0" style:text-align=right>
-            {#if site}
-                <a href={site.href} target="_blank" {title}>
+            {#if info.site}
+                <a href={info.site.href} target="_blank" title={info.title}>
                     <FontAwesomeIcon icon={projectIcon}/>
                 </a>
                 <span style:margin-left=1rem />
             {/if}
             
-            <a href={source.href} target="_blank" title="Github Repo">
+            <a href={info.source.href} target="_blank" title="Github Repo">
                 <FontAwesomeIcon icon={githubIcon}/>
             </a>
         </span>
 
         <span>
-            {#if tags.length}
+            {#if info.tags.length}
                 <hr />
-                <footer style:display=flex style:gap=1ch>
-                    {#each tags.map(decorated) as { label, color }}
+                <footer style:display=flex style:gap=1ch style:justify-content=center>
+                    {#each info.tags.map(decorated) as { label, color }}
                         <Tag {label} {color} />
                     {/each}
                 </footer>

@@ -1,5 +1,5 @@
 <script lang=ts>
-    import { page } from "$app/stores";
+    import { page } from "$app/stores"
     import { FontAwesomeIcon } from "@fortawesome/svelte-fontawesome"
     import { faGithub as githubIcon } from "@fortawesome/free-brands-svg-icons"
     

@@ -1,0 +1,30 @@
+[
+    {
+        "title": "example-1",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "updated": "<yesterday>",
+        "source": "https://example.com?source=1",
+        "site": "https://example.com?site=1",
+        "tags": [ "React", "NextJS" ]
+    },
+    {
+        "title": "*.github.io",
+        "description": "Lorem ipsum dolor sit amet",
+        "updated": "<today>",
+        "source": "https://example.com?source=0",
+        "tags": [ "Svelte", "TypeScript", "SCSS" ]
+    },
+    {
+        "title": "example-3",
+        "updated": "<yesterday>",
+        "source": "https://example.com?source=3",
+        "tags": [ "Svelte", "TypeScript", "SCSS", "HTML", "JavaScript", "WebRTC", "PWA" ]
+    },
+    {
+        "title": "example-2",
+        "description": "Lorem ipsum dolor sit amet",
+        "updated": "<today>",
+        "source": "https://example.com?source=2",
+        "tags": [ "Svelte", "TypeScript", "SCSS" ]
+    }
+]

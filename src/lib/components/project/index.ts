@@ -6,4 +6,5 @@ export type Project = {
     updated: Date,
     source: URL,
     site?: URL,
+    tags: string[],
 }
