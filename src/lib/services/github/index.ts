@@ -13,16 +13,17 @@ const repos = async (user: string) => {
         html_url: string,
         description?: string,
         homepage?: string,
-        updated_at: string,
+        pushed_at: string,
         languages_url: string,
         language: string,
         topics: string[],
+        has_pages: boolean,
     }[]
 }
 
 export async function listProjects(user: string): Promise<Project[]> {
     if (process.env.NODE_ENV === "development") {
-        const example = (await import("./example.json")).default.map(({ updated, source, site, ...data }) => {
+        const example = (await import("./example.json")).default.map(({ updated, source, site, status, ...data }) => {
             const transform = (() => {
                 switch (updated) {
                     case "<today>": return DateTime.fromJSDate(new Date()).set({ hour: 0 })
@@ -30,11 +31,15 @@ export async function listProjects(user: string): Promise<Project[]> {
                 }
             })()
 
-            const retv = { ...data, source: new URL(source), updated: transform!.toJSDate() }
+            const retv: Project = { ...data, source: new URL(source), updated: transform!.toJSDate() }
 
-            return site
-                ? { ...retv, site: new URL(site) }
-                : retv
+            if (site)
+                retv.site = new URL(site)
+            
+            if (status)
+                retv.status = new URL(status)
+
+            return retv
         })
 
         return example
@@ -46,18 +51,22 @@ export async function listProjects(user: string): Promise<Project[]> {
             .then(response => response.json())
             .then(langs => Object.keys(langs))
 
-        const retv = {
+        const retv: Project = {
             title: repo.name,
             description: repo.description,
-            updated: new Date(repo.updated_at),
+            updated: new Date(repo.pushed_at),
             source: new URL(repo.html_url),
             tags: [...new Set([ repo.language, ...await langs, ...repo.topics ])],
         }
 
-        return repo.homepage
-            ? { ...retv, site: new URL(repo.homepage) }
-            : retv
-    }))
+        if (repo.homepage)
+            retv.site = new URL(repo.homepage)
+        
+        if (repo.has_pages)
+            retv.status = new URL(`https://github.com/${user}/${repo.name}/actions/workflows/deploy.yaml/badge.svg`)
 
+        return retv
+    }))
+    
     return projects
 }

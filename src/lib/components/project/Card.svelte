@@ -48,7 +48,12 @@
 <Card>
     <article style:display=flex style:flex-direction=column style:height=100%>
         <hgroup>
-            <small>Updated {info.updated}</small>
+            <div style:display=flex style:gap=1ch style:align-items=center>
+                {#if info.status}
+                    <img src={info.status.href} />
+                {/if}
+                <small style:line-height=20px style:margin-left=auto style:white-space=nowrap>Updated {info.updated}</small>
+            </div>
             <hr />
             <h1>{info.title}</h1>
         </hgroup>

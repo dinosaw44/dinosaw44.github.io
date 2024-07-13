@@ -5,7 +5,8 @@
         "updated": "<yesterday>",
         "source": "https://example.com?source=1",
         "site": "https://example.com?site=1",
-        "tags": [ "react", "next", "tailwind" ]
+        "tags": [ "react", "next", "tailwind" ],
+        "status": "https://github.com/dinosaw44/dinosaw44.github.io/actions/workflows/deploy.yaml/badge.svg"
     },
     {
         "title": "*.github.io",
