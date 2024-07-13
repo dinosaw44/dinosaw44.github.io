@@ -1,3 +1,7 @@
+<script lang=ts>
+    import placeholder from "$lib/common/assets/placeholder.png"
+</script>
+
 <style lang=scss>
     hgroup {
         display: flex;
@@ -9,13 +13,13 @@
         }
 
         p {
-            color: var(--accent);
+            color: var(--color-accent);
             text-align: right;
         }
     }
 
     .img-wrapper {
-        border: solid 3px var(--accent);
+        border: solid 3px var(--color-accent);
         border-radius: 50%;
         overflow: hidden;
         width: 8rem;
@@ -48,7 +52,7 @@
 <div style:display="inline-block">
     <hgroup>
         <span class="img-wrapper">
-            <img src="duck.png" alt="" />
+            <img src={placeholder} alt="" />
         </span>
         <span>
             <h1>Under construction!</h1>
@@ -56,13 +60,6 @@
         </span>
     </hgroup>
 </div>
-
-<img class="decor" src="pointer-left.png" alt=""
-    style:left="3ch"
-    style:top="4ch"
-    style:transform="scale(.5)"
-    on:mouseenter={e => e.currentTarget.classList.add("clear")}
-/>
 
 <img class="decor" src="pointer-right.png" alt=""
     style:right="6ch"

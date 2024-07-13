@@ -1,66 +1,6 @@
-$light: #ffffff;
-$dark: #171717;
-$yellow: #ffda0a;
-
-$medium: 300;
-$fine: 200;
-
-$font: roboto;
-$size: 10pt;
-
-@each $level in 1 2 3 4 5 6 {
-    h#{$level} {
-        @extend %headings !optional;
-    }
-}
-
-ul, ol {
-    @extend %lists !optional;
-}
-
-:root {
-    --light: #{$light};
-    --dark: #{$dark};
-    --accent: #{$yellow};
-
-    font-family: $font;
-    font-size: $size;
-    font-weight: $medium;
-}
+@use "./lib/common/style.scss";
 
 body {
-    background-color: var(--dark);
-    color: var(--light);
-}
-
-%headings {
-    font-weight: $fine;
-    text-transform: capitalize;
-    white-space: nowrap;
-}
-
-h1 {
-    font-size: 4rem;
-}
-
-h2 {
-    font-size: 2rem;
-}
-
-h3 {
-    font-size: 1.6rem;
-    font-weight: $medium;
-}
-
-h4, h5, h6 {
-    font-size: 1rem;
-    font-weight: $medium;
-}
-
-%lists {
-    font-size: .8rem;
-}
-
-body, p, %headings, %lists {
-    margin: 0;
+    background-color: var(--color-dark);
+    color: var(--color-light);
 }

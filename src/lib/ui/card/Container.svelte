@@ -1,15 +1,15 @@
 <style lang=scss>
-    $hi: color-mix(in srgb, var(--dark) 80%, white);
+    $hi: color-mix(in srgb, var(--color-dark) 80%, white);
 
     div {
-        border-color: var(--accent);
+        border-color: var(--color-accent);
         width: min-content;
         
         &:hover {
             background: 
-                linear-gradient(to top right, var(--dark), $hi) padding-box,
+                linear-gradient(to top right, var(--color-dark), $hi) padding-box,
                 linear-gradient(to top right, orange, yellow) border-box;
-            color: var(--light);
+            color: var(--color-light);
             border: 2px solid transparent;
             border-radius: 15px;
             display: inline-block;

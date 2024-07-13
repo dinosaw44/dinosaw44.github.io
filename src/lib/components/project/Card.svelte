@@ -40,7 +40,7 @@
         font-size: 1.75rem;
 
         &:hover {
-            color: var(--accent);
+            color: var(--color-accent);
         }
     }
 </style>
