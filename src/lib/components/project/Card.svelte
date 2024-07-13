@@ -50,7 +50,7 @@
         <hgroup>
             <div style:display=flex style:gap=1ch style:align-items=center>
                 {#if info.status}
-                    <img src={info.status.href} />
+                    <img src={info.status.href} alt="Status Badge"/>
                 {/if}
                 <small style:line-height=20px style:margin-left=auto style:white-space=nowrap>Updated {info.updated}</small>
             </div>
