@@ -4,6 +4,9 @@ import { type Project } from "$lib/components/project"
 const repos = async (user: string) => {
     const uri = `https://api.github.com/users/${user}/repos`
     const res = await fetch(uri)
+    
+    if (res.status !== 200)
+        throw new Error((await res.json()).message)
 
     return await res.json() as {
         name: string,
@@ -13,6 +16,7 @@ const repos = async (user: string) => {
         updated_at: string,
         languages_url: string,
         language: string,
+        topics: string[],
     }[]
 }
 
@@ -36,8 +40,8 @@ export async function listProjects(user: string): Promise<Project[]> {
         return example
     }
 
-    const r = await repos(user)
-    const projects = await Promise.all(r.map(async (repo) => {
+    const repoList = await repos(user);
+    const projects = await Promise.all(repoList.map(async (repo) => {
         const langs = fetch(repo.languages_url)
             .then(response => response.json())
             .then(langs => Object.keys(langs))
@@ -47,7 +51,7 @@ export async function listProjects(user: string): Promise<Project[]> {
             description: repo.description,
             updated: new Date(repo.updated_at),
             source: new URL(repo.html_url),
-            tags: [...new Set([ repo.language, ...await langs ])],
+            tags: [...new Set([ repo.language, ...await langs, ...repo.topics ])],
         }
 
         return repo.homepage

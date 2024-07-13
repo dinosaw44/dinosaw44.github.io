@@ -13,18 +13,23 @@
     const decorated = (tag: typeof info.tags[number]) => {
         const colors: Record<string, `#${string}`> = {
             "Svelte": "#f00",
-            "TypeScript": "#07a",
+            "TypeScript": "#07c",
             "JavaScript": "#fc0",
             "SCSS": "#faf",
             "React": "#077",
-            "NextJS": "#aaa",
+            "Next": "#aaa",
             "PWA": "#7a0",
             "WebRTC": "#fa0",
+            "Dexie": "#d4c",
+            "Tailwind": "#4cf",
         }
 
+        const label = (tag[0].toUpperCase() + tag.slice(1))
+            .replace(/(Pwa|rtc)/, s => s.toUpperCase())
+
         return {
-            label: tag,
-            color: colors[tag] ?? "#fff",
+            label,
+            color: colors[label] ?? "#fff",
         }
     }
 </script>
