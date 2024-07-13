@@ -10,7 +10,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+        with:
+          submodules: 'true'
+          token: ${{ secrets.COMMON_ACCESS_TOKEN }}
+          
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
