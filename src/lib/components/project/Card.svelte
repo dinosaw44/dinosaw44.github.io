@@ -10,13 +10,25 @@
 
     export let info: Omit<Project, "updated"> & { updated: string | null }
 
+    $: tags = info.tags.filter((tag, _, tags) => {
+        switch (tag) {
+            case 'JavaScript': return !tags.includes('TypeScript')
+            case 'Svelte': return !(tags.includes('react') || tags.includes('sveltekit'))
+            case 'react': return !tags.includes('next') 
+            case 'HTML': return false
+            case 'CSS': return false
+            default: return true
+        }
+    })
+
     const decorated = (tag: typeof info.tags[number]) => {
         const colors: Record<string, `#${string}`> = {
             "Svelte": "#f00",
+            "SvelteKit": "#f00",
             "TypeScript": "#07c",
             "JavaScript": "#fc0",
             "SCSS": "#faf",
-            "React": "#077",
+            "React": "#0bb",
             "Next": "#aaa",
             "PWA": "#7a0",
             "WebRTC": "#fa0",
@@ -25,7 +37,8 @@
         }
 
         const label = (tag[0].toUpperCase() + tag.slice(1))
-            .replace(/(Pwa|rtc)/, s => s.toUpperCase())
+            .replace(/(Pwa|rtc|P2p)/, s => s.toUpperCase())
+            .replace(/kit$/, s => s[0].toUpperCase() + s.slice(1))
 
         return {
             label,
@@ -82,10 +95,10 @@
         </span>
 
         <span>
-            {#if info.tags.length}
+            {#if tags.length}
                 <hr />
                 <footer style:display=flex style:gap=1ch style:justify-content=center>
-                    {#each info.tags.map(decorated) as { label, color }}
+                    {#each tags.map(decorated) as { label, color }}
                         <Tag {label} {color} />
                     {/each}
                 </footer>

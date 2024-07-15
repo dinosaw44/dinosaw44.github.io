@@ -56,7 +56,7 @@ export async function listProjects(user: string): Promise<Project[]> {
             description: repo.description,
             updated: new Date(repo.pushed_at),
             source: new URL(repo.html_url),
-            tags: [...new Set([ repo.language, ...await langs, ...repo.topics ])],
+            tags: [...new Set([ repo.language, ...repo.topics, ...await langs ])],
         }
 
         if (repo.homepage)
