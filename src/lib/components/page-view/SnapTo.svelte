@@ -25,7 +25,6 @@
         style:flex=auto
         style:padding=1rem
     >
-        <Nav />
         <slot />
     </div>
 </section>

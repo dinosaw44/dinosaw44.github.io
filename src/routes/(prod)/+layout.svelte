@@ -4,7 +4,7 @@
     
     import GithubLink from '$lib/components/GithubLink.svelte'
 
-    import "../../style.scss"
+    import '$lib/style.scss'
 
     let nav: SiteNav
 
