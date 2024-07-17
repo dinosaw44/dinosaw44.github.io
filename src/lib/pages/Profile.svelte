@@ -57,25 +57,6 @@
         <div class=component style:width=30ch />
     </div>
     <!--/main-->
-
-    <!--showcase-->
-    <div class=section
-        style:padding='0 6rem 0 6.75rem'
-    >
-        <h2 style:writing-mode=sideways-lr>Showcase</h2>
-        <div
-            style:flex=auto
-            style:display=flex
-            style:gap=1rem
-        >
-            {#each Array(4) as _}
-                <div class=component
-                    style:flex=auto
-                />
-            {/each}
-        </div>
-    </div>
-    <!--/showcase-->
 {:else}
     <div
         style:display=flex
@@ -88,18 +69,4 @@
     </div>
 
     <div class=component style:height=8ex />
-
-    <h2 style:text-align=center style:margin=0>Showcase</h2>
-        <div
-            style:flex=auto
-            style:display=flex
-            style:flex-direction=column
-            style:gap=1rem
-        >
-            {#each Array(4) as _}
-                <div class=component
-                    style:flex=auto
-                />
-            {/each}
-        </div>
 {/if}
