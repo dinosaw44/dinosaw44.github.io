@@ -1,0 +1,1 @@
+export { default as SnapTo } from './SnapTo.svelte'
