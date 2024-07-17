@@ -25,6 +25,7 @@
 
 <div class=wrapper style:position=fixed
     style:width=100%
+    style:max-width=100vw
 >
     <div class=stack 
         style:flex=auto

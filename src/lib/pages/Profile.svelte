@@ -9,38 +9,97 @@
         gap: 1rem;
     }
 
-    .stack {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+    #wrapper {
+        padding: 4rem 4rem 0 12rem;
+    }
+    
+    @media (max-width: 1024px) {
+        #wrapper {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    @media (orientation: portrait) {
+        #wrapper {
+            padding: 0;
+        }
     }
 </style>
 
-<div class=section style:flex=auto
-    style:padding='4rem 4rem 0 12rem'
->
-    <div class=stack style:flex=auto >
-        <h1 class=component>Profile</h1>
-        <div class=component style:flex=auto />
-    </div>
+<script lang=ts>
+    let width: number = 0,
+        height: number = 0
+
+    $: orientation = width > height
+        ? 'landscape'
+        : 'portrait'
+</script>
+
+<svelte:window
+    bind:innerWidth={width}
+    bind:innerHeight={height}
+/>
+
+{#if orientation === 'landscape'}
+    <!--main-->
+    <div id=wrapper class=section style:flex=auto>
+        <div
+            style:display=flex
+            style:flex=auto
+            style:flex-direction=column
+            style:gap=1rem
+        >
+            <h1 class=component>Profile</h1>
+            <div class=component style:flex=auto />
+        </div>
+        
         <div class=component style:width=30ch />
     </div>
+    <!--/main-->
 
+    <!--showcase-->
     <div class=section
         style:padding='0 6rem 0 6.75rem'
     >
-    <h2 style:writing-mode=sideways-lr>Showcase</h2>
+        <h2 style:writing-mode=sideways-lr>Showcase</h2>
+        <div
+            style:flex=auto
+            style:display=flex
+            style:gap=1rem
+        >
+            {#each Array(4) as _}
+                <div class=component
+                    style:flex=auto
+                />
+            {/each}
+        </div>
+    </div>
+    <!--/showcase-->
+{:else}
     <div
-        style:flex=auto
         style:display=flex
+        style:flex=auto
+        style:flex-direction=column
         style:gap=1rem
     >
-        {#each Array(4) as _}
-            <div
-                style:border='dashed 2px'
-                style:border-radius=1rem
-                style:flex=auto
-            />
-        {/each}
+        <h1 style:text-align=center style:margin=0>Profile</h1>
+        <div class=component style:flex=auto />
     </div>
-</div>
+
+    <div class=component style:height=8ex />
+
+    <h2 style:text-align=center style:margin=0>Showcase</h2>
+        <div
+            style:flex=auto
+            style:display=flex
+            style:flex-direction=column
+            style:gap=1rem
+        >
+            {#each Array(4) as _}
+                <div class=component
+                    style:flex=auto
+                />
+            {/each}
+        </div>
+{/if}
