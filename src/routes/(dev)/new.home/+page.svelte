@@ -4,10 +4,11 @@
     import { Showcase } from '$lib/layout/showcase'
 
     import { FontAwesomeIcon } from "@fortawesome/svelte-fontawesome"
-    import { faCodeBranch as githubIcon } from "@fortawesome/free-solid-svg-icons"
-    import { faLayerGroup as projectIcon } from "@fortawesome/free-solid-svg-icons"
+    import { faCodeBranch as repoLinkIcon } from "@fortawesome/free-solid-svg-icons"
+    import { faLayerGroup as homepageLinkIcon } from "@fortawesome/free-solid-svg-icons"
+	import { updated } from '$app/stores';
 
-    export let data: { showcase: string[], projects: {[index: string]: { homepage: string, repo: string }}}
+    export let data
 
     const { showcase, projects } = data
 </script>
@@ -16,6 +17,7 @@
     article {
         border: solid 2px var(--color-accent);
         border-radius: 1rem;
+        display: grid;
         flex: 1;
         padding: 1rem;
 
@@ -30,10 +32,6 @@
                 linear-gradient(to top right, var(--color-dark), $hi) padding-box,
                 linear-gradient(to top right, orange, var(--color-accent)) border-box;
             border: 2px solid transparent;
-
-            &:hover {
-                transform: scale(1.05);
-            }
         }
 
         a {
@@ -49,35 +47,34 @@
 
 <SnapTo id=profile>
     <Profile />
-    <Showcase
-        items={showcase.map(label => ({ label }))}
-
-        let:item={project}
-        let:label={name}
-    >
+    <Showcase items={showcase} let:item={project}>
         <h2 slot=heading>Showcase</h2>
-
-        <article style:display=flex>
+        <article>
             {#if project}
-                {@const { homepage, repo } = projects[name]}
+                {@const { url, homepage, description, updated } = project}
 
-                <h3>{name}</h3>
-                <div style:flex=auto style:text-align=right style:margin-top=auto>
-                    {#if homepage}
-                        {@const { href } = new URL(homepage)}
-                        <a {href} target="_blank" title={name}>
-                            <FontAwesomeIcon icon={projectIcon}/>
-                        </a>
-                        <span style:margin-left=1rem />
-                    {/if}
-                    
-                    {#if repo}
-                        {@const { href } = new URL(repo)}
-                        <a {href} target="_blank" title="Github Repo">
-                            <FontAwesomeIcon icon={githubIcon}/>
-                        </a>
-                    {/if}
-                    </div>
+                <h3>{project.name}</h3>
+
+                <p>{description}</p>
+
+                <div style:display=flex style:flex=auto style:justify-content=space-between style:margin-top=auto>
+                    <small style:margin-top=auto>{updated}</small>
+                    <span>
+                        {#if homepage}
+                            {@const { href } = new URL(homepage)}
+                            <a {href} target="_blank" title="Homepage">
+                                <FontAwesomeIcon icon={homepageLinkIcon}/>
+                            </a>
+                        {/if}
+
+                        {#if url}
+                            {@const { href } = new URL(url)}
+                            <a {href} target="_blank" title="Github Repo">
+                                <FontAwesomeIcon icon={repoLinkIcon}/>
+                            </a>
+                        {/if}
+                    </span>
+                </div>
             {:else}
                 <i>Coming soon...</i>
             {/if}

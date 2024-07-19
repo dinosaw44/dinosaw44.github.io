@@ -3,6 +3,7 @@
     import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome'
     import { faGithub as githubIcon } from '@fortawesome/free-brands-svg-icons'
 
+    import favicon from '$lib/common/assets/favicon.png'
     import '$lib/style.scss'
 
     let scroll: number = 0
@@ -11,6 +12,10 @@
     $: current = Math.round(scroll/page || 0)
     
 </script>
+
+<svelte:head>
+    <link rel=icon href={favicon} />
+</svelte:head>
 
 <style lang=scss>
     :global(html) {
@@ -38,11 +43,6 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
-    }
-
-    .component {
-        border: dashed 2px;
-        border-radius: .5rem;
     }
 
     .section {

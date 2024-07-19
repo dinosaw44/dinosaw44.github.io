@@ -1,5 +1,5 @@
-<script lang=ts>
-    export let items: { label: string }[]
+<script lang=ts generics="T">
+    export let items: T[]
 </script>
 
 <style lang=scss>
@@ -38,19 +38,30 @@
     }
 
     section {
+        display: flex;
+
         @include media(compact) {
             flex-direction: column;
+        }
+
+        span {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(4, 1fr);
+
+            @include media(compact) {
+                display: flex;
+                flex-direction: column;
+            }
         }
     }
 </style>
 
-<section 
-    style:display=flex
-    style:gap=1rem
->
+<section>
     <slot name=heading />
-
-    {#each Array.from({ ...items, length: 4 }) as item}
-        <slot {item} label={item?.label} />
-    {/each}
+    <span>
+        {#each Array.from({ ...items, length: 4 }) as item}
+            <slot {item} />
+        {/each}
+    </span>
 </section>
