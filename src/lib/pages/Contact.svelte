@@ -36,7 +36,6 @@
         style:padding-bottom=0
     >
         <div class=stack style:flex=auto>
-            <h1 class=component>Contact</h1>
             <div class=component
                 style:flex=auto
                 style:margin='0 8rem'

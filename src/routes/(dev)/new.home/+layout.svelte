@@ -27,14 +27,8 @@
         margin: 0;
     }
 
-    @media (orientation: landscape) {
-        :global(h1) {
-            display: none;
-        }
-    }
-
     @media (orientation: portrait) {
-        :global(h1) {
+        :global(:not(article) > h1) {
             visibility: hidden;
         }
     }

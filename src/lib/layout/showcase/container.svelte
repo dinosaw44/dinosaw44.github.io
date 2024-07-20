@@ -1,4 +1,5 @@
 <script lang=ts generics="T">
+    import Empty from './card/card.base.svelte'
     export let items: T[]
 </script>
 
@@ -29,19 +30,24 @@
         }
     }
 
-    :global([slot=heading]) {
-        writing-mode: sideways-lr;
-        
-        @include media(compact) {
-            writing-mode: horizontal-tb;
-        }
-    }
-
     section {
         display: flex;
 
+        @include media(sparse) {
+            margin: auto;
+        }
+
         @include media(compact) {
             flex-direction: column;
+        }
+
+        & :global([slot=heading]) {
+            writing-mode: sideways-lr;
+            
+            @include media(compact) {
+                text-align: center;
+                writing-mode: horizontal-tb;
+            }
         }
 
         span {
@@ -55,13 +61,23 @@
             }
         }
     }
+
+    article:has(i) {
+        background: none;
+        border: solid var(--color-accent) 2px;
+        border-style: dashed !important;
+    }
 </style>
 
 <section>
     <slot name=heading />
     <span>
-        {#each Array.from({ ...items, length: 4 }) as item}
+        {#each items as item}
             <slot {item} />
+        {/each}
+
+        {#each Array.from({ length: 4 - items.length }) as _}
+            <Empty />
         {/each}
     </span>
 </section>

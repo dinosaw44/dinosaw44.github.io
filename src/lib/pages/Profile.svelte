@@ -50,7 +50,6 @@
             style:flex-direction=column
             style:gap=1rem
         >
-            <h1 class=component>Profile</h1>
             <div class=component style:flex=auto />
         </div>
         

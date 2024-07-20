@@ -44,7 +44,6 @@
 
 {#if orientation === 'landscape'}
     <div id=wrapper class=stack style:flex=auto>
-        <h1 class=component>Projects</h1>
         <div
             style:flex=auto
             style:display=grid
