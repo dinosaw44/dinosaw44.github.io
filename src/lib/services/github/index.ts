@@ -1,6 +1,3 @@
-import { DateTime } from "luxon"
-import { type Project } from "$lib/components/project"
-
 const repos = async (user: string) => {
     const uri = `https://api.github.com/users/${user}/repos`
     const res = await fetch(uri)

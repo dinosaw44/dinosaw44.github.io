@@ -3,7 +3,7 @@
     import { faCodeBranch as repoLinkIcon } from "@fortawesome/free-solid-svg-icons"
     import { faLayerGroup as homepageLinkIcon } from "@fortawesome/free-solid-svg-icons"
 
-    export let homepage: string
+    export let homepage: string | undefined
     export let url: string
 </script>
 
