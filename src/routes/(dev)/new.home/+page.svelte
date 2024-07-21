@@ -1,23 +1,85 @@
 <script lang=ts>
-    import { Profile, Projects, Contact } from '$lib/pages'
+    import { Contact } from '$lib/pages'
     import { SnapTo } from '$lib/components/page-view'
-    import Showcase, { Card, Links, Timestamp, Footer } from '$lib/layout/showcase'
+
+    import { getContext } from '$lib/context/display-mode'
+
+    import Showcase, { Card as ShowcaseCard, Links, Timestamp, Footer } from '$lib/layout/showcase'
+    import Projects, { Card as ProjectCard } from '$lib/layout/projects'
 
     export let data
 
     const { showcase, projects } = data
+
+    const displayMode = getContext()
 </script>
+
+<style lang=scss>
+    .component {
+        border: dashed 2px;
+        border-radius: .5rem;
+    }
+
+    .section {
+        display: flex;
+        gap: 1rem;
+    }
+
+    #wrapper {
+        padding: 4rem 4rem 0 12rem;
+    }
+    
+    @media (max-width: 1024px) {
+        #wrapper {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    @media (orientation: portrait) {
+        #wrapper {
+            padding: 0;
+        }
+    }
+</style>
 
 <SnapTo id=profile>
 
-    <Profile />
+    <!--Profile & tags-->
+    {#if $displayMode === 'compact'}
+        <div
+            style:display=flex
+            style:flex=auto
+            style:flex-direction=column
+            style:gap=1rem
+        >
+            <h1 style:text-align=center style:margin=0>Profile</h1>
+            <div class=component style:flex=auto />
+        </div>
+
+        <div class=component style:height=8ex />
+    {:else}
+        <div id=wrapper class=section style:flex=auto>
+            <div
+                style:display=flex
+                style:flex=auto
+                style:flex-direction=column
+                style:gap=1rem
+            >
+                <div class=component style:flex=auto />
+            </div>
+            
+            <div class=component style:width=30ch />
+        </div>
+    {/if}
+    <!--/Profile & tags-->
 
     <Showcase items={showcase} let:item={project}>
         {@const { name, ...details } = project}
 
         <h2 slot=heading>Showcase</h2>
 
-        <Card title={name}>
+        <ShowcaseCard title={name}>
             {@const { description, updated, ...links } = details}
             {@const { homepage, url } = links}
 
@@ -29,12 +91,27 @@
                 </Timestamp>
                 <Links {homepage} {url} />
             </Footer>
-        </Card>
+        </ShowcaseCard>
     </Showcase>
 </SnapTo>
 
 <SnapTo id=projects>
-    <Projects />
+    <Projects items={projects} let:item={project}>
+        {@const { name, ...details } = project}
+        <ProjectCard title={name}>
+            {@const { description, updated, ...links } = details}
+            {@const { homepage, url } = links}
+
+            <p>{description}</p>
+
+            <Footer>
+                <Timestamp iso={updated} let:datetime={updated}>
+                    Updated {updated.toRelativeCalendar()}
+                </Timestamp>
+                <Links {homepage} {url} />
+            </Footer>
+        </ProjectCard>
+    </Projects>
 </SnapTo>
 
 <SnapTo id=contact>

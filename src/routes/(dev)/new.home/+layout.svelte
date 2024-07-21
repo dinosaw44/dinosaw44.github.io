@@ -4,13 +4,14 @@
     import { faGithub as githubIcon } from '@fortawesome/free-brands-svg-icons'
 
     import favicon from '$lib/common/assets/favicon.png'
+    import DisplayModeContext from '$lib/context/display-mode'
+
     import '$lib/style.scss'
 
     let scroll: number = 0
     let page: number = 0
 
     $: current = Math.round(scroll/page || 0)
-    
 </script>
 
 <svelte:head>
@@ -23,9 +24,6 @@
         scroll-snap-type: y mandatory;
     }
 
-    :global(body) {
-        margin: 0;
-    }
 
     @media (orientation: portrait) {
         :global(:not(article) > h1) {
@@ -147,4 +145,6 @@
 </div>
 <!--/background-->
 
-<slot />
+<DisplayModeContext>
+    <slot />
+</DisplayModeContext>

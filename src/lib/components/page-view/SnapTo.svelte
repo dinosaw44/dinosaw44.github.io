@@ -1,6 +1,4 @@
 <script lang=ts>
-    import { Nav } from '$lib/components/navigation'
-
     export let id: string
 </script>
 
@@ -12,9 +10,10 @@
     }
 
     section {
-        scroll-snap-align: center;
+        scroll-snap-align: start;
     }
 </style>
+
 
 <section {id}
     style:display=flex

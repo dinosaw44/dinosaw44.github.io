@@ -1,4 +1,15 @@
 @use "$lib/common/style.scss";
+@use "$lib/context/display-mode/_breakpoints.module.scss" as bp;
+@use "sass:map";
+
+:root {
+    --breakpoint-large: #{map.get(bp.$breakpoints, "large")};
+    --breakpoint-small: #{map.get(bp.$breakpoints, "small")};
+}
+
+:global() {
+    $breakpoint-large: map.get(bp.$breakpoints, "large");
+}
 
 body {
     color: var(--color-text);

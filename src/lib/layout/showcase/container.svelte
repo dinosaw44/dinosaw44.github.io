@@ -9,7 +9,7 @@
             (min-width: 1200) and
             (orientation: landscape),
         dense: 
-            (min-width: 768) or
+            (min-width: 768) and
             (orientation: landscape),
         compact:
             (orientation: portrait),
@@ -42,7 +42,13 @@
         }
 
         & :global([slot=heading]) {
+
             writing-mode: sideways-lr;
+
+            @supports not (writing-mode: sideways-lr) {
+                transform: rotate(180deg);
+                writing-mode: vertical-lr;
+            }
             
             @include media(compact) {
                 text-align: center;
@@ -60,12 +66,6 @@
                 flex-direction: column;
             }
         }
-    }
-
-    article:has(i) {
-        background: none;
-        border: solid var(--color-accent) 2px;
-        border-style: dashed !important;
     }
 </style>
 

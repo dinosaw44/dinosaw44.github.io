@@ -1,0 +1,10 @@
+$breakpoints: (
+    large: 1200,
+    small: 768,
+);
+
+:export {
+    @each $key, $value in $breakpoints {
+        #{unquote($key)}: $value;
+    }
+}
