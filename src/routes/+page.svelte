@@ -109,6 +109,11 @@
                     Updated {updated.toRelativeCalendar()}
                 </Timestamp>
                 <Links {homepage} {url} />
+                <div>
+                    {#each project.languages as lang}
+                        <span>{lang}</span>
+                    {/each}
+                </div>
             </Footer>
         </ProjectCard>
     </Projects>

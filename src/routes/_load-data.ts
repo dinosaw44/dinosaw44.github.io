@@ -1,6 +1,6 @@
 import { PUBLIC_GITHUB_USERNAME } from '$env/static/public'
-import { getProfile } from '@util/gh-user-profile'
 import { selectFilter } from '$lib/common/utils/filter'
+import { getProfile } from '@util/gh-user-profile'
 
 type Project = Awaited<ReturnType<typeof getProfile>>['projects'][number]
 
