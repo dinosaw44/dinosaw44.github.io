@@ -28,7 +28,7 @@ jobs:
       - name: build
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
-          REDIS_URI: ${{ secrets.REDIS_URI }}
+          PUBLIC_GITHUB_USERNAME: ${{ vars.PUBLIC_GITHUB_USERNAME }}
         run: |
           npm run build
 
