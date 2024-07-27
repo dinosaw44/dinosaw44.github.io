@@ -1,3 +1,6 @@
 [submodule "src/lib/common"]
 	path = src/lib/common
 	url = git@github.com:dinosaw44/common.git
+[submodule "packages/gh-user-profile"]
+	path = packages/gh-user-profile
+	url = git@github.com:dinosaw44/util.gh-user-profile.git

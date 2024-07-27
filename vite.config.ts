@@ -9,5 +9,12 @@ export default defineConfig({
 			modernPolyfills: true,
 			renderLegacyChunks: false,
 		})
-	]
+	],
+	server: {
+		fs: {
+			allow: [
+				'packages',
+			]
+		}
+	}
 });
