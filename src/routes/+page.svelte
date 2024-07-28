@@ -7,6 +7,9 @@
     import Showcase, { Card as ShowcaseCard, Links, Timestamp, Footer } from '$lib/layout/showcase'
     import Projects, { Card as ProjectCard } from '$lib/layout/projects'
 
+	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome'
+	import { faAnglesDown } from '@fortawesome/free-solid-svg-icons'
+
     export let data
 
     const { showcase, projects } = data
@@ -93,6 +96,19 @@
             </Footer>
         </ShowcaseCard>
     </Showcase>
+
+    <div 
+        style:background-color=#0007
+        style:border='1px solid #fffc'
+        style:border-radius=1rem
+        style:font-size=1.25rem
+        style:padding=1rem
+        style:margin='3rem auto'
+        style:text-align=center
+    >
+        <p style:font-size=inherit>See more</p>
+        <FontAwesomeIcon icon={faAnglesDown} />
+    </div>
 </SnapTo>
 
 <SnapTo id=projects>
