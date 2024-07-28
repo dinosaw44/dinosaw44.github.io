@@ -3,8 +3,8 @@
     import { faCodeBranch as repoLinkIcon } from "@fortawesome/free-solid-svg-icons"
     import { faLayerGroup as homepageLinkIcon } from "@fortawesome/free-solid-svg-icons"
 
-    export let homepage: string | undefined
-    export let url: string
+    export let site: string | null
+    export let repo: string
 </script>
 
 <style lang=scss>
@@ -30,15 +30,15 @@
 </style>
 
 <span>
-    {#if homepage}
-        {@const { href } = new URL(homepage)}
+    {#if site}
+        {@const { href } = new URL(site)}
         <a {href} target="_blank" title="Homepage">
             <FontAwesomeIcon icon={homepageLinkIcon}/>
         </a>
     {/if}
 
-    {#if url}
-        {@const { href } = new URL(url)}
+    {#if repo}
+        {@const { href } = new URL(repo)}
         <a {href} target="_blank" title="Github Repo">
             <FontAwesomeIcon icon={repoLinkIcon}/>
         </a>

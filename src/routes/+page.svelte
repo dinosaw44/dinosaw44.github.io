@@ -12,7 +12,7 @@
 
     export let data
 
-    const { showcase, projects } = data
+    const { showcase, projects, tags } = data
 
     const displayMode = getContext()
 </script>
@@ -60,7 +60,21 @@
             <div class=component style:flex=auto />
         </div>
 
-        <div class=component style:height=8ex />
+        <div>
+            <h2>Skillset</h2>
+            <ul style:display=contents>
+                {#each Array.from(tags ?? []) as tag}
+                    <li
+                        style:background-color=var(--color-dark)
+                        style:border='solid 1px var(--color-accent)'
+                        style:border-radius=1rem
+                        style:display=inline-block
+                        style:padding='0 .5rem'
+                        style:margin=.25rem
+                    >{tag}</li>
+                {/each}
+            </ul>
+        </div>
     {:else}
         <div id=wrapper class=section style:flex=auto>
             <div
@@ -72,19 +86,55 @@
                 <div class=component style:flex=auto />
             </div>
             
-            <div class=component style:width=30ch />
+            <div style:width=30ch>
+                <h2>Skillset</h2>
+                <ul style:display=contents>
+                    {#each Array.from(tags ?? []) as tag}
+                        <li
+                            style:background-color=var(--color-dark)
+                            style:border='solid 1px var(--color-accent)'
+                            style:border-radius=1rem
+                            style:display=inline-block
+                            style:padding='0 .5rem'
+                            style:margin=.25rem
+                        >{tag}</li>
+                    {/each}
+                </ul>
+            </div>
         </div>
     {/if}
     <!--/Profile & tags-->
 
-    <Showcase items={showcase} let:item={project}>
+    <Showcase items={showcase ?? []} let:item={project}>
         {@const { name, ...details } = project}
 
         <h2 slot=heading>Showcase</h2>
 
         <ShowcaseCard title={name}>
             {@const { description, updated, ...links } = details}
-            {@const { homepage, url } = links}
+            {@const { site, repo } = links}
+
+            <svelte:fragment slot=pre>
+                {#if $displayMode !== 'compact'}
+                    <div>
+                        <ul
+                            style:display=flex
+                            style:gap=.5rem
+                        >
+                            
+                            {#each [...Object.values(project.languages), ...project.topics] as tag}
+                                <li
+                                    style:background-color=var(--color-dark)
+                                    style:border='solid 1px var(--color-accent)'
+                                    style:border-radius=1rem
+                                    style:padding='0 .5rem'
+                                >{tag}</li>
+                            {/each}
+                        </ul>
+                        <hr>
+                    </div>
+                {/if}
+            </svelte:fragment> 
 
             <p>{description}</p>
 
@@ -92,7 +142,7 @@
                 <Timestamp iso={updated} let:datetime={updated}>
                     Updated {updated.toRelativeCalendar()}
                 </Timestamp>
-                <Links {homepage} {url} />
+                <Links {site} {repo} />
             </Footer>
         </ShowcaseCard>
     </Showcase>
@@ -114,9 +164,32 @@
 <SnapTo id=projects>
     <Projects items={projects} let:item={project}>
         {@const { name, ...details } = project}
+        
         <ProjectCard title={name}>
             {@const { description, updated, ...links } = details}
-            {@const { homepage, url } = links}
+            {@const { site, repo } = links}
+            
+            <svelte:fragment slot=pre>
+                {#if $displayMode !== 'compact'}
+                    <div>
+                        <ul
+                            style:display=flex
+                            style:gap=.5rem
+                        >
+                            
+                            {#each [...Object.values(project.languages), ...project.topics] as tag}
+                                <li
+                                    style:background-color=var(--color-dark)
+                                    style:border='solid 1px var(--color-accent)'
+                                    style:border-radius=1rem
+                                    style:padding='0 .5rem'
+                                >{tag}</li>
+                            {/each}
+                        </ul>
+                        <hr>
+                    </div>
+                {/if}
+            </svelte:fragment>
 
             <p>{description}</p>
 
@@ -124,12 +197,7 @@
                 <Timestamp iso={updated} let:datetime={updated}>
                     Updated {updated.toRelativeCalendar()}
                 </Timestamp>
-                <Links {homepage} {url} />
-                <div>
-                    {#each project.languages as lang}
-                        <span>{lang}</span>
-                    {/each}
-                </div>
+                <Links {site} {repo} />
             </Footer>
         </ProjectCard>
     </Projects>

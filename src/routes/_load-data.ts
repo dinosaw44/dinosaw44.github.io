@@ -12,5 +12,12 @@ export default async function() {
     return {
         showcase: projects.filter(showcase(true)),
         projects: projects.filter(showcase(false)),
+        tags: new Set(projects.reduce((tags: string[], { topics, languages }) => {
+            return [
+                ...Object.values(languages),
+                ...tags,
+                ...topics,
+            ] as string[]
+        }, []) ?? [])
     }
 }
