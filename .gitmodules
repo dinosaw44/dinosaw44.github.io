@@ -4,3 +4,6 @@
 [submodule "packages/gh-user-profile"]
 	path = packages/gh-user-profile
 	url = git@github.com:dinosaw44/util.gh-user-profile.git
+[submodule "packages/ui"]
+	path = packages/ui
+	url = git@github.com:dinosaw44/kit.ui.git

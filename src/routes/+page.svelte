@@ -2,6 +2,8 @@
     import { Contact } from '$lib/pages'
     import { SnapTo } from '$lib/components/page-view'
 
+    import TagArray from '$lib/components/TagArray.svelte'
+
     import { getContext } from '$lib/context/display-mode'
 
     import Showcase, { Card as ShowcaseCard, Links, Timestamp, Footer } from '$lib/layout/showcase'
@@ -60,20 +62,9 @@
             <div class=component style:flex=auto />
         </div>
 
-        <div>
+        <div style:text-align=center>
             <h2>Skillset</h2>
-            <ul style:display=contents>
-                {#each Array.from(tags ?? []) as tag}
-                    <li
-                        style:background-color=var(--color-dark)
-                        style:border='solid 1px var(--color-accent)'
-                        style:border-radius=1rem
-                        style:display=inline-block
-                        style:padding='0 .5rem'
-                        style:margin=.25rem
-                    >{tag}</li>
-                {/each}
-            </ul>
+            <TagArray {tags} />
         </div>
     {:else}
         <div id=wrapper class=section style:flex=auto>
@@ -86,20 +77,9 @@
                 <div class=component style:flex=auto />
             </div>
             
-            <div style:width=30ch>
+            <div style:width=30ch style:text-align=center>
                 <h2>Skillset</h2>
-                <ul style:display=contents>
-                    {#each Array.from(tags ?? []) as tag}
-                        <li
-                            style:background-color=var(--color-dark)
-                            style:border='solid 1px var(--color-accent)'
-                            style:border-radius=1rem
-                            style:display=inline-block
-                            style:padding='0 .5rem'
-                            style:margin=.25rem
-                        >{tag}</li>
-                    {/each}
-                </ul>
+                <TagArray {tags} />
             </div>
         </div>
     {/if}
@@ -114,25 +94,14 @@
             {@const { description, updated, ...links } = details}
             {@const { site, repo } = links}
 
-            <svelte:fragment slot=pre>
+            <svelte:fragment slot=post>
+                {@const tags = [...Object.keys(project.languages), ...project.topics]}
+
                 {#if $displayMode !== 'compact'}
-                    <div>
-                        <ul
-                            style:display=flex
-                            style:gap=.5rem
-                        >
-                            
-                            {#each [...Object.values(project.languages), ...project.topics] as tag}
-                                <li
-                                    style:background-color=var(--color-dark)
-                                    style:border='solid 1px var(--color-accent)'
-                                    style:border-radius=1rem
-                                    style:padding='0 .5rem'
-                                >{tag}</li>
-                            {/each}
-                        </ul>
+                    <span style:text-align=center>
                         <hr>
-                    </div>
+                        <TagArray {tags} />
+                    </span>
                 {/if}
             </svelte:fragment> 
 
@@ -168,26 +137,15 @@
         <ProjectCard title={name}>
             {@const { description, updated, ...links } = details}
             {@const { site, repo } = links}
-            
+
             <svelte:fragment slot=pre>
+                {@const tags = [...Object.keys(project.languages), ...project.topics]}
+
                 {#if $displayMode !== 'compact'}
-                    <div>
-                        <ul
-                            style:display=flex
-                            style:gap=.5rem
-                        >
-                            
-                            {#each [...Object.values(project.languages), ...project.topics] as tag}
-                                <li
-                                    style:background-color=var(--color-dark)
-                                    style:border='solid 1px var(--color-accent)'
-                                    style:border-radius=1rem
-                                    style:padding='0 .5rem'
-                                >{tag}</li>
-                            {/each}
-                        </ul>
+                    <span>
+                        <TagArray tags={tags} />
                         <hr>
-                    </div>
+                    </span>
                 {/if}
             </svelte:fragment>
 
