@@ -31,7 +31,7 @@
     }
 </style>
 
-<div style:padding-top=4rem>
+<div>
     <section style:grid-template-columns='repeat({columns}, 1fr)'>
         {#each items as item}
             <slot {item} />

@@ -20,5 +20,4 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-# GH Pages
-+page.server.ts
++layout.server.ts
