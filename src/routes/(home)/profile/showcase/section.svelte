@@ -1,6 +1,6 @@
 <script lang=ts generics="T">
-    import Empty from './card/card.base.svelte'
-    export let items: T[]
+    import Empty from '$lib/layout/showcase/card/card.base.svelte'
+    export let items: T[] = []
 </script>
 
 <style lang=scss>

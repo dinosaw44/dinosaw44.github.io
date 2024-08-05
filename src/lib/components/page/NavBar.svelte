@@ -1,6 +1,6 @@
 <script lang=ts>
     import { FontAwesomeIcon } from "@fortawesome/svelte-fontawesome"
-    import { UnorderedList as List } from "@dinosaw44/ui/components/svelte/list"
+    import { UnorderedList as List } from "@dinosaw44/ui/src/list"
 
     import { page as current } from "$app/stores"
     import { faGithub as profileLinkIcon} from "@fortawesome/free-brands-svg-icons"

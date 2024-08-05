@@ -58,7 +58,7 @@
             scroll-snap-align: start;
         }
 
-        :global(header) {
+        span * {
             position: unset;
             visibility: hidden;
         }
@@ -74,7 +74,9 @@
 
     {#each Object.entries(pages) as [ page, [PageView, data] ], index}
         <div id={page} aria-hidden={page === current ? null : true}>
-            <x-placeholder use:template={header} aria-hidden />
+            <span>
+                <x-placeholder use:template={header} aria-hidden />
+            </span>
 
             <PageView {data} />
 

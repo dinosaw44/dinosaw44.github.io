@@ -20,7 +20,8 @@
             border-radius: 2rem;
             color: inherit;
             padding: .5rem;
-
+            width: 1rem;
+            
             &:hover {
                 border-color: var(--color-emphasis);
                 color: var(--color-emphasis);
